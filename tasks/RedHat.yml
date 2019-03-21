@@ -4,7 +4,7 @@
     name: google-cloud-monitoring
     baseurl: "{{ stackdriver_monitoring_repo }}-$basearch"
     description: A google repo that contains monitoring stuff
-    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    gpgkey: "{{ gpgkeys }}"
     gpgcheck: yes
     enabled: yes
     repo_gpgcheck: yes
@@ -14,7 +14,7 @@
     name: google-cloud-logging
     baseurl: "{{ stackdriver_logging_repo }}-$basearch"
     description: A google repo that contains logging stuff
-    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    gpgkey: "{{ gpgkeys }}"
     gpgcheck: yes
     enabled: yes
     repo_gpgcheck: yes
@@ -24,6 +24,12 @@
     name: "{{ stackdriver_collectd_package }}"
     state: present
   notify: restart stackdriver
+
+- name: adding stackdriver configs
+  template:
+    src: stackdriver.sysconfig
+    dest: "{{ stackdriver_sysconfig }}"
+    backup: yes
 
 - name: "[RedHat] restart-stackdriver-agent"
   systemd:
