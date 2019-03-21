@@ -1,0 +1,11 @@
+---
+- name: "[RedHat] Add the Google Stackdriver yum repository."
+  yum_repository:
+    name: google-cloud-monitoring.repo
+    baseurl: {{ stackdriver_package_repo }}
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    gpgcheck: yes
+
+- name: "[RedHat] Install the Stackdriver agent."
+  yum: name={{ stackdriver_collectd_package }} state=present
+#  notify: stackdriver updated

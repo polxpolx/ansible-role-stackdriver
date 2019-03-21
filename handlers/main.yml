@@ -1,0 +1,25 @@
+---
+- name: restart collectd
+  service: name={{ stackdriver_collectd_service }} state=restarted
+
+- name: restart extractor
+  service: name={{ stackdriver_extractor_service }} state=restarted
+
+
+- name: stackdriver updated
+  sudo: no
+  local_action:
+    module: stackdriver
+    event: annotation
+    key: "{{ stackdriver_api_key }}"
+    instance_id: "{{ stackdriver_host_id|default(ec2_id) }}"
+    msg: |
+      Stackdriver agent installed/updated on "{{ inventory_hostname }}".
+      {% if stackdriver_enabled_plugins|join %}
+      Plugins: {{ stackdriver_enabled_plugins|select|join(', ') }}.
+      {% else %}
+      No plugins.
+      {% endif %}
+  changed_when: False
+  when: stackdriver_events_enabled and (
+    stackdriver_host_id is defined or ec2_id is defined)
