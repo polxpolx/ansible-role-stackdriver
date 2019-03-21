@@ -3,6 +3,7 @@
   yum_repository:
     name: google-cloud-monitoring.repo
     baseurl: "{{ stackdriver_package_repo }}"
+    description: A google repo that contains logging stuff
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
     gpgcheck: yes
 
