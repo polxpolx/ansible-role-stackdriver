@@ -30,9 +30,17 @@
     dest: "{{ stackdriver_sysconfig }}"
     backup: yes
 
-- name: "[RedHat] Starting service {{ services }}"
+#did below like this cause loop didnt work will fix later
+- name: "[RedHat] Starting service stackdriver-agent"
   systemd:
     state: started
     daemon_reload: yes
-    name: "{{ services }}"
+    name: stackdriver-agent
+    enabled: yes
+
+- name: "[RedHat] Starting service google-fluentd"
+  systemd:
+    state: started
+    daemon_reload: yes
+    name: google-fluentd
     enabled: yes
