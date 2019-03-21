@@ -24,3 +24,10 @@
     name: "{{ stackdriver_collectd_package }}"
     state: present
   notify: restart-stackdriver-agent
+
+  - name: "[RedHat] restart-stackdriver-agent"
+    systemd:
+      state: started
+      daemon_reload: yes
+      name: "{{ stackdriver_collectd_service }}"
+      enabled: yes

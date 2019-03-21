@@ -1,7 +1,5 @@
 ---
-- name: restart-stackdriver-agent
-  systemd:
-    state: restarted
-    daemon_reload: yes
+- name: restart stackdriver-agent
+  service:
     name: "{{ stackdriver_collectd_service }}"
-    enabled: yes
+    state: restarted
