@@ -23,4 +23,4 @@
   yum:
     name: "{{ stackdriver_collectd_package }}"
     state: present
-  notify: stackdriver restart stackdriver-agent
+  notify: restart-stackdriver-agent
