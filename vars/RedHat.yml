@@ -1,6 +1,7 @@
 ---
-stackdriver_package_repo:
-  https://packages.cloud.google.com/yum/repos/google-cloud-logging-el{{ ansible_distribution_major_version }}
+stackdriver_logging_repo: https://packages.cloud.google.com/yum/repos/google-cloud-logging-el{{ ansible_distribution_major_version }}
+stackdriver_monitoring_repo: https://packages.cloud.google.com/yum/repos/google-cloud-monitoring-el{{ ansible_distribution_major_version }}
+
 stackdriver_sysconfig: /etc/sysconfig/stackdriver
 
 
