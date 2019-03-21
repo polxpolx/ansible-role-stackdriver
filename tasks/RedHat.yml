@@ -19,13 +19,13 @@
     enabled: yes
     repo_gpgcheck: yes
 
-- name: "[RedHat] Install the Stackdriver agent."
+- name: "[RedHat] Yum installing {{ packages }}"
   yum:
-    name: "{{ stackdriver_collectd_package }}"
+    name: "{{ packages }}"
     state: present
   notify: restart stackdriver
 
-- name: adding stackdriver configs
+- name: [RedHat] adding stackdriver configs
   template:
     src: stackdriver.sysconfig
     dest: "{{ stackdriver_sysconfig }}"
