@@ -1,7 +1,7 @@
 ---
 - name: "[RedHat] Add the Google Stackdriver yum repository."
   yum_repository:
-    name: google-cloud-monitoring.repo
+    name: google-cloud-monitoring
     baseurl: "{{ stackdriver_package_repo }}"
     description: A google repo that contains logging stuff
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
