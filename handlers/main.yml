@@ -1,5 +1,5 @@
 ---
-- name: restart stackdriver-agent
+- name: restart stackdriver
   service:
     name: "{{ stackdriver_collectd_service }}"
     state: restarted

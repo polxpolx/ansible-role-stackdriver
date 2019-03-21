@@ -23,7 +23,7 @@
   yum:
     name: "{{ stackdriver_collectd_package }}"
     state: present
-  notify: restart-stackdriver-agent
+  notify: restart stackdriver
 
 - name: "[RedHat] restart-stackdriver-agent"
   systemd:
