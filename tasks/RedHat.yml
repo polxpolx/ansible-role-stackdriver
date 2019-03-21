@@ -23,7 +23,6 @@
   yum:
     name: "{{ packages }}"
     state: present
-  notify: restart stackdriver
 
 - name: [RedHat] adding stackdriver configs
   template:
@@ -31,9 +30,9 @@
     dest: "{{ stackdriver_sysconfig }}"
     backup: yes
 
-- name: "[RedHat] restart-stackdriver-agent"
+- name: "[RedHat] Starting service {{ services }}"
   systemd:
     state: started
     daemon_reload: yes
-    name: "{{ stackdriver_collectd_service }}"
+    name: "{{ services }}"
     enabled: yes
