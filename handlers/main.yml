@@ -1,6 +1,5 @@
 ---
-- name: restart collectd
-  service: name={{ stackdriver_collectd_service }} state=restarted
-
-- name: restart extractor
-  service: name={{ stackdriver_extractor_service }} state=restarted
+- name: restart stackdriver-agent
+  service:
+    name: {{ stackdriver_collectd_service }}
+    state: restarted
