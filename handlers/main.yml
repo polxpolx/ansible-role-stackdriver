@@ -1,5 +1,5 @@
 ---
 - name: restart stackdriver
-  service:
+  systemd:
     name: "{{ stackdriver_collectd_service }}"
     state: restarted
