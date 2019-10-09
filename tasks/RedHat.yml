@@ -44,3 +44,11 @@
     state: started
     name: google-fluentd
     enabled: yes
+
+- name: Restart cron job exists
+  cron:
+    name: "restart stackdriver"
+    minute: 0
+    job: "service google-fluentd restart"
+    user: "root"
+  when: stackdriver_restart
