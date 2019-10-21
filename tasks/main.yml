@@ -1,14 +1,54 @@
 ---
-- name: Include OS-specific variables.
-  include_vars: "{{ item }}"
-  with_first_found:
-    - ../vars/{{ ansible_distribution }}.yml
-    - ../vars/{{ ansible_os_family }}.yml
+- name: "Add the Google Stackdriver monitoring yum repository."
+  yum_repository:
+    name: google-cloud-monitoring
+    baseurl: "{{ stackdriver_monitoring_repo }}-$basearch"
+    description: A google repo that contains monitoring stuff
+    gpgkey: "{{ gpgkeys }}"
+    gpgcheck: yes
+    enabled: yes
+    repo_gpgcheck: yes
 
-# OS-specific installation
+- name: "Add the Google Stackdriver logging yum repository."
+  yum_repository:
+    name: google-cloud-logging
+    baseurl: "{{ stackdriver_logging_repo }}-$basearch"
+    description: A google repo that contains logging stuff
+    gpgkey: "{{ gpgkeys }}"
+    gpgcheck: yes
+    enabled: yes
+    repo_gpgcheck: yes
 
-- include: Debian.yml
-  when: ansible_os_family == "Debian"
+- name: "Yum installing {{ packages }}"
+  yum:
+    name: "{{ packages }}"
+    state: present
 
-- include: RedHat.yml
-  when: ansible_os_family == "RedHat"
+- name: "adding stackdriver configs"
+  template:
+    src: stackdriver.sysconfig
+    dest: "{{ stackdriver_sysconfig }}"
+    backup: yes
+  notify:
+    - restart stackdriver
+
+#did below like this cause loop didnt work will fix later
+- name: "Starting service stackdriver-agent"
+  systemd:
+    state: started
+    name: stackdriver-agent
+    enabled: yes
+
+- name: "Starting service google-fluentd"
+  systemd:
+    state: started
+    name: google-fluentd
+    enabled: yes
+
+- name: Restart cron job exists
+  cron:
+    name: "restart stackdriver"
+    minute: 0
+    job: "service google-fluentd restart"
+    user: "root"
+  when: stackdriver_restart
