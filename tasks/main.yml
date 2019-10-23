@@ -30,7 +30,20 @@
     dest: "{{ stackdriver_sysconfig }}"
     backup: yes
   notify:
-    - restart stackdriver
+    - restart stackdriver-agent
+
+- name: "Custom log files"
+  template:
+    src: log.conf.j2
+    dest: "/etc/google-fluentd/config.d/{{ sd_item.name }}.conf"
+    owner: root
+    mode: 0640
+  with_items: "{{ stackdriver_tail_logs }}"
+  loop_control:
+    loop_var: sd_item
+  when: stackdriver_tail_logs|length > 0
+  notify:
+    - restart google-fluentd
 
 #did below like this cause loop didnt work will fix later
 - name: "Starting service stackdriver-agent"

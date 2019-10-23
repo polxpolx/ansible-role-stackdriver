@@ -1,0 +1,8 @@
+<source>
+  @type tail
+  format {{ sd_item.format if sd_item.format is defined else '/^(?<message>(?<time>[^ ]*\s*[^ ]* [^ ]*) .*)$/' }}
+  path {{ sd_item.path }}
+  pos_file /var/lib/google-fluentd/pos/cromwell.pos
+  read_from_head true
+  tag {{ sd_item.name }}
+</source>

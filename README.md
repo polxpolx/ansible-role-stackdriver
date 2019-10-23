@@ -15,6 +15,8 @@ packages:
   - google-fluentd
   - google-fluentd-catch-all-config
 stackdriver_collectd_service: stackdriver-agent
+stackdriver_restart: false (whether to restart the agent every hour)
+stackdriver_tail_logs: [] (list of extra log configs to tail)
 ```
 
 

@@ -1,4 +1,12 @@
 ---
+stackdriver_restart: false
+
+# Array of custom log definitions
+# Format:
+#   name: cromwell (required)
+#   path: /var/log/cromwell/cromwell (required)
+#   format: (defaults to /^(?<message>(?<time>[^ ]*\s*[^ ]* [^ ]*) .*)$/)
+stackdriver_tail_logs: []
 stackdriver_logging_repo: https://packages.cloud.google.com/yum/repos/google-cloud-logging-el{{ ansible_distribution_major_version }}
 stackdriver_monitoring_repo: https://packages.cloud.google.com/yum/repos/google-cloud-monitoring-el{{ ansible_distribution_major_version }}
 gpgkeys: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
@@ -8,8 +16,3 @@ packages:
   - google-fluentd
   - google-fluentd-catch-all-config
 stackdriver_collectd_service: stackdriver-agent
-stackdriver_restart: false
-
-#stackdriver_package_repo:
-#  http://repo.stackdriver.com/stackdriver-el{{ ansible_distribution_major_version }}.repo
-#stackdriver_sysconfig: /etc/sysconfig/stackdriver

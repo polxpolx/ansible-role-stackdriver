@@ -1,5 +1,10 @@
 ---
-- name: restart stackdriver
+- name: restart stackdriver-agent
   systemd:
     name: "{{ stackdriver_collectd_service }}"
+    state: restarted
+
+- name: restart google-fluentd
+  systemd:
+    name: google-fluentd
     state: restarted
