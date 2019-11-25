@@ -1,7 +1,7 @@
 <source>
   @type tail
   format /(?<time>[^ ]* {1,2}[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? (?:\[(?<severity>[A-Z]+)\])? *(?<message>.*)$/
-  path /var/log/messages
+  path {{ sd_item.path if sd_item.path is defined else '/var/log/messages' }}
   pos_file /var/lib/google-fluentd/pos/{{ sd_item.name }}.pos
   read_from_head true
   tag {{ sd_item.name }}

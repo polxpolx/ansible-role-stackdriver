@@ -4,6 +4,7 @@ stackdriver_restart: false
 # Array of custom configs
 # Format:
 #   name (required): str, name of service
+#   path: str, path to log, defaults to /var/log/messages
 #   template (required): str, must correspond to config template file
 #     templates/[template].conf.js
 # Example:
