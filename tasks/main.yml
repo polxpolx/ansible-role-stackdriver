@@ -32,16 +32,16 @@
   notify:
     - restart stackdriver-agent
 
-- name: "Custom log files"
+- name: "Custom configs"
   template:
-    src: log.conf.j2
+    src: "{{ sd_item.template }}.conf.j2"
     dest: "/etc/google-fluentd/config.d/{{ sd_item.name }}.conf"
     owner: root
     mode: 0640
-  with_items: "{{ stackdriver_tail_logs }}"
+  with_items: "{{ stackdriver_custom_configs }}"
   loop_control:
     loop_var: sd_item
-  when: stackdriver_tail_logs|length > 0
+  when: stackdriver_custom_configs|length > 0
   notify:
     - restart google-fluentd
 
