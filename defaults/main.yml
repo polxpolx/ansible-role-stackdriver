@@ -1,12 +1,16 @@
 ---
 stackdriver_restart: false
 
-# Array of custom log definitions
+# Array of custom configs
 # Format:
-#   name: cromwell (required)
-#   path: /var/log/cromwell/cromwell (required)
-#   format: (defaults to /^(?<message>(?<time>[^ ]*\s*[^ ]* [^ ]*) .*)$/)
-stackdriver_tail_logs: []
+#   name (required): str, name of service
+#   template (required): str, must correspond to config template file
+#     templates/[template].conf.js
+# Example:
+#   name: agora
+#   template: scala_app
+stackdriver_custom_configs: []
+
 stackdriver_logging_repo: https://packages.cloud.google.com/yum/repos/google-cloud-logging-el{{ ansible_distribution_major_version }}
 stackdriver_monitoring_repo: https://packages.cloud.google.com/yum/repos/google-cloud-monitoring-el{{ ansible_distribution_major_version }}
 gpgkeys: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
