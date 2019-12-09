@@ -7,6 +7,10 @@ stackdriver_restart: false
 #   path: str, path to log, defaults to /var/log/messages
 #   template (required): str, must correspond to config template file
 #     templates/[template].conf.js
+#   ** Template-specific options **
+#   multiline.conf:
+#     firstline: regex for log entry start. See template for default
+#     format1: regex for log. See template for default
 # Example:
 #   name: agora
 #   template: scala_app

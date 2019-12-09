@@ -1,0 +1,12 @@
+<source>
+  @type tail
+  path {{ sd_item.path if sd_item.path is defined else '/var/log/messages' }}
+  pos_file /var/lib/google-fluentd/pos/{{ sd_item.name }}.pos
+  read_from_head true
+  tag {{ sd_item.name }}
+  <parse>
+    @type multiline
+    format_firstline {{ sd_item.firstline if sd_item.firstline is defined else '/\d{4}-\d{1,2}-\d{1,2}/' }}
+    format1 {{ sd_item.format1 if sd_item.format1 is defined else '/^(?<time>[^ ]* [^ ]*) \[(?<ident>[a-zA-Z0-9_\/\.\-]*)\] (?<severity>[A-Z]+) *(?<message>.*)/' }}
+  </parse>
+</source>
