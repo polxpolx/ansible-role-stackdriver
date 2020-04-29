@@ -7,7 +7,9 @@ Adds google yum repos for stackdriver, fluentd, google-fluentd-catch-all-config 
 ```
 ---
 stackdriver_logging_repo: https://packages.cloud.google.com/yum/repos/google-cloud-logging-el{{ ansible_distribution_major_version }}
+stackdriver_logging_repo_suffix: '$basearch'
 stackdriver_monitoring_repo: https://packages.cloud.google.com/yum/repos/google-cloud-monitoring-el{{ ansible_distribution_major_version }}
+stackdriver_monitoring_repo_suffix: '$basearch'
 gpgkeys: https://packages.cloud.google.com/yum/doc/yum-key.gpg,https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 stackdriver_sysconfig: /etc/sysconfig/stackdriver
 packages:
@@ -20,7 +22,7 @@ stackdriver_tail_logs: [] (list of extra log configs to tail)
 ```
 
 
-#### Samaple playbook
+#### Sample playbook
 ```
 ---
 - hosts: localhost

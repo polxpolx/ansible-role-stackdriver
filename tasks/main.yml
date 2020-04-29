@@ -1,44 +1,44 @@
 ---
-- name: "Add the Google Stackdriver monitoring yum repository."
+- name: 'Add the Google Stackdriver monitoring yum repository.'
   yum_repository:
     name: google-cloud-monitoring
-    baseurl: "{{ stackdriver_monitoring_repo }}-$basearch"
+    baseurl: '{{ stackdriver_monitoring_repo }}-{{ stackdriver_monitoring_repo_suffix }}'
     description: A google repo that contains monitoring stuff
-    gpgkey: "{{ gpgkeys }}"
+    gpgkey: '{{ gpgkeys }}'
     gpgcheck: yes
     enabled: yes
     repo_gpgcheck: yes
 
-- name: "Add the Google Stackdriver logging yum repository."
+- name: 'Add the Google Stackdriver logging yum repository.'
   yum_repository:
     name: google-cloud-logging
-    baseurl: "{{ stackdriver_logging_repo }}-$basearch"
+    baseurl: '{{ stackdriver_logging_repo }}-{{ stackdriver_logging_repo_suffix }}'
     description: A google repo that contains logging stuff
-    gpgkey: "{{ gpgkeys }}"
+    gpgkey: '{{ gpgkeys }}'
     gpgcheck: yes
     enabled: yes
     repo_gpgcheck: yes
 
-- name: "Yum installing {{ packages }}"
+- name: 'Yum installing {{ packages }}'
   yum:
-    name: "{{ packages }}"
+    name: '{{ packages }}'
     state: present
 
-- name: "adding stackdriver configs"
+- name: 'adding stackdriver configs'
   template:
     src: stackdriver.sysconfig
-    dest: "{{ stackdriver_sysconfig }}"
+    dest: '{{ stackdriver_sysconfig }}'
     backup: yes
   notify:
     - restart stackdriver-agent
 
-- name: "Custom configs"
+- name: 'Custom configs'
   template:
-    src: "{{ sd_item.template }}.conf.j2"
-    dest: "/etc/google-fluentd/config.d/{{ sd_item.name }}.conf"
+    src: '{{ sd_item.template }}.conf.j2'
+    dest: '/etc/google-fluentd/config.d/{{ sd_item.name }}.conf'
     owner: root
     mode: 0640
-  with_items: "{{ stackdriver_custom_configs }}"
+  with_items: '{{ stackdriver_custom_configs }}'
   loop_control:
     loop_var: sd_item
   when: stackdriver_custom_configs|length > 0
@@ -46,13 +46,13 @@
     - restart google-fluentd
 
 #did below like this cause loop didnt work will fix later
-- name: "Starting service stackdriver-agent"
+- name: 'Starting service stackdriver-agent'
   systemd:
     state: started
     name: stackdriver-agent
     enabled: yes
 
-- name: "Starting service google-fluentd"
+- name: 'Starting service google-fluentd'
   systemd:
     state: started
     name: google-fluentd
@@ -60,8 +60,8 @@
 
 - name: Restart cron job exists
   cron:
-    name: "restart stackdriver"
+    name: 'restart stackdriver'
     minute: 0
-    job: "service google-fluentd restart"
-    user: "root"
+    job: 'service google-fluentd restart'
+    user: 'root'
   when: stackdriver_restart
