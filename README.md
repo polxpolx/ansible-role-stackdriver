@@ -1,10 +1,12 @@
 # ansible-role-stackdriver
 
 ## Overview
+
 Adds google yum repos for stackdriver, fluentd, google-fluentd-catch-all-config and then installs them
 
-#### Variables
-```
+### Variables
+
+```yaml
 ---
 stackdriver_logging_repo: https://packages.cloud.google.com/yum/repos/google-cloud-logging-el{{ ansible_distribution_major_version }}
 stackdriver_logging_repo_suffix: '$basearch'
@@ -21,11 +23,20 @@ stackdriver_restart: false (whether to restart the agent every hour)
 stackdriver_tail_logs: [] (list of extra log configs to tail)
 ```
 
+### Sample playbook
 
-#### Sample playbook
-```
+```yaml
 ---
 - hosts: localhost
   roles:
   - role: ansible-role-stackdriver
   ```
+
+### Support for Google Cloud Monitoring agent v6
+
+In order to support the Google Cloud Monitoring agent v6, set the var `stackdriver_monitoring_repo_suffix` to `$basearch-all` (in a host or group var file for instance)
+
+```yaml
+# Use Cloud Monitoring Agent 6.X
+stackdriver_monitoring_repo_suffix: '$basearch-all'
+```
