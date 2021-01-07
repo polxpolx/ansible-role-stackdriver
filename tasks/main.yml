@@ -19,9 +19,19 @@
     enabled: yes
     repo_gpgcheck: yes
 
-- name: 'Yum installing {{ packages }}'
+- name: 'Yum installing stackdriver-agent'
   yum:
-    name: '{{ packages }}'
+    name: 'stackdriver-agent'
+    state: present
+
+- name: 'Yum installing google-fluentd'
+  yum:
+    name: 'google-fluentd'
+    state: present
+
+- name: 'Yum installing google-fluentd-catch-all-config'
+  yum:
+    name: 'google-fluentd-catch-all-config'
     state: present
 
 - name: 'adding stackdriver configs'
