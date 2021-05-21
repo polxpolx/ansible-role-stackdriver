@@ -27,3 +27,7 @@ stackdriver_tail_logs: [] (list of extra log configs to tail)
   roles:
   - role: ansible-role-stackdriver
   ```
+
+### Trigger the playbook for openvas server
+Change the value of the default variable inside `defaults/main.yml` to True
+```stackdriver_openvas: True ```
