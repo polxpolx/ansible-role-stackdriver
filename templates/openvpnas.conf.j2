@@ -1,0 +1,10 @@
+<source>
+  @type tail
+  format multiline
+  format1 /^(?<time>^[^ ]*)\s+(?<message>.*)/
+  multiline_flush_interval 5s
+  path /var/log/openvpnas.log
+  pos_file /var/lib/google-fluentd/pos/openvpnas.pos
+  read_from_head true
+  tag openvpnas
+</source>

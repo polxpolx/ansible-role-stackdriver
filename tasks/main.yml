@@ -55,6 +55,14 @@
   notify:
     - restart google-fluentd
 
+- name: "Custom openvpnas config"
+  template:
+    src: "openvpnas.conf.j2"
+    dest: "/etc/google-fluentd/config.d/openvpnas.conf.j2"
+    owner: root
+    mode: 0640
+  when: stackdriver_openvas
+
 #did below like this cause loop didnt work will fix later
 - name: 'Starting service stackdriver-agent'
   systemd:
