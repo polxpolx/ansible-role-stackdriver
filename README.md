@@ -40,3 +40,6 @@ In order to support the Google Cloud Monitoring agent v6, set the var `stackdriv
 # Use Cloud Monitoring Agent 6.X
 stackdriver_monitoring_repo_suffix: '$basearch-all'
 ```
+
+### Support for custom log from openvpnas server
+To activate the log capture from openvpnas server, you will need to change the set to True the variable: ```stackdriver_openvas: True``` inside the `defautls/main.yml` file.
