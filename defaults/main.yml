@@ -27,4 +27,4 @@ packages:
   - google-fluentd
   - google-fluentd-catch-all-config
 stackdriver_collectd_service: stackdriver-agent
-stackdriver_openvas: False
+stackdriver_openvas: false
